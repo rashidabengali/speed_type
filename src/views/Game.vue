@@ -1,18 +1,18 @@
 <template v-if="currentUser">
   <div class="game">
     <h1 id="v-step-0">Speed Type</h1>
-    <h3 class="v-step-1" id="preventcopy" ref="heading">{{phrase}}</h3>
-    <input placeholder="start typing" v-model="test" v-on:keyup="timer" v-on:keyup.enter="displayScore" :disabled="isDisabled">
+    <h3 class="v-step-1" id="preventcopy" ref="heading"></h3>
+    <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
     <p>{{message}}</p>
     <p class="v-step-2">Timer: {{stopwatch}} seconds</p>
     <!--<p>Percentage Completed: {{percentage}}</p>-->
     <!--<p>Score: {{score}}</p>-->
-    <template v-if="this.speed===0">
+    <!-- <template v-if="this.speed===0">
       <p>Gotta work on your accuracy, Mate!</p>
-    </template>
-    <template v-else>
-      <p class="v-step-3">Speed (WPM): {{speed}} </p>
-    </template>
+    </template> -->
+    <!-- <template v-else> -->
+    <p class="v-step-3">Speed (WPM): {{speed}} </p>
+    <!-- </template> -->
     <button data-v-step="6" v-on:click="restart">Restart</button>
     <p>
       <a class="v-step-4" href="/leaderboard">Leader Board</a>
@@ -66,7 +66,7 @@ export default {
           },
           {
             target: '.v-step-3',
-            content: `Once you hit enter, the timer will stop.<br>Your typing speed will be displayed here`
+            content: `Your typing speed will be displayed here as you keep typing`
           },
           {
             target: '.v-step-4',
@@ -85,9 +85,8 @@ export default {
           }
         ],
       message: '',
-      phrase: '',
       test: null,
-      speed: null,
+      speed: 0,
       isDisabled: false,
       isPlaying: false,
       t: null,
@@ -104,28 +103,28 @@ export default {
     },
 
     displayScore() {
-      sw.stop();
-      this.stopwatch = this.getElapsedTime();
-      this.uid = this.currentUser.uid;
-
       if(this.$refs.heading.innerText === this.test) {
+        sw.stop();
+        this.stopwatch = this.getElapsedTime();
+        this.uid = this.currentUser.uid;
         this.message = 'Correct';
-        //this.score = this.stopwatch;
-        this.speed = ((this.test.length / 5) / (this.stopwatch / 60)).toFixed(2);
-      } else {
-        this.message = 'Incorrect';
-        //this.score = 0;
-        this.speed = 0;
+        this.speed = this.getWPM()
+        this.addScore();
+        clearInterval(this.t);
+        clearInterval(this.p);
+        this.isDisabled = true;
       }
+    },
 
-      this.addScore();
-      clearInterval(this.t);
-      clearInterval(this.p);
-      this.isDisabled = true;
+    getWPM() {
+      return ((this.test.length / 5) / (this.stopwatch / 60)).toFixed()
     },
 
     timer() {
       if (this.isPlaying) {
+        this.$refs.heading.innerHTML = this.getPhraseHtml()
+        this.speed = this.getWPM()
+        this.displayScore()
         return;
       }
       this.isPlaying = true;
@@ -140,6 +139,34 @@ export default {
       // }, 1000)
     },
 
+    getPhraseHtml() {
+      let sentence = this.$refs.heading.innerText
+      let typedText = this.test
+
+      if (!typedText) {
+        return sentence
+      }
+
+      let correctTyped = ''
+      let i = 0
+
+      for (; i<typedText.length; i++) {
+        if (typedText[i] === sentence[i]) {
+          correctTyped += sentence[i]
+        } else {
+          break
+        }
+      }
+
+      let remainingText = sentence.substring(i)
+      let remainingTextHtml = ''
+      if (remainingText) {
+        remainingTextHtml = `<span>${remainingText}</span>`
+      }
+
+      return `<span style="color: green">${correctTyped}</span>${remainingTextHtml}`
+    },
+
       /*calculatePercentage() {
       if (this.isPlaying) {
       return;
@@ -147,31 +174,32 @@ export default {
     this.isPlaying = true;
     this.p = setInterval(() => {
     this. percentage = ((this.$refs.heading.innerText.length - this.test.length)/this.$refs.heading.innerText.length) * 100;
-  }, 1000)
+    }, 1000)
 
-  },*/
+    },*/
 
     getElapsedTime() {
-      let elapsedTime = Number((sw.time() / 1000).toFixed(2));
-      return elapsedTime;
+      let elapsedTime = Number((sw.time() / 1000).toFixed(1))
+      if (!elapsedTime) return 0
+      return elapsedTime
     },
 
     restart() {
-      this.speed = null,
-      this.message = '',
-      this.test = '',
-      this.isDisabled = false,
-      this.t = null,
-      this.p = null,
-      this.phrase = txtgen.sentence();
-      this.isPlaying = false;
-      this.stopwatch = 0;
-      sw.reset();
+      this.stopwatch = 0
+      this.speed = null
+      this.message = ''
+      this.test = ''
+      this.isPlaying = false
+      this.isDisabled = false
+      this.t = null
+      this.p = null
+      this.$refs.heading.innerText = txtgen.sentence()
+      sw.reset()
     }
   },
 
   mounted() {
-    this.phrase = txtgen.sentence();
+    this.$refs.heading.innerText = txtgen.sentence();
     this.$tours['myTour'].start()
   }
 }
@@ -184,5 +212,10 @@ export default {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+  }
+
+  .inputText {
+    height: 80px;
+    width: 70%
   }
 </style>

@@ -23,6 +23,8 @@
         </b-col>
       </b-row>
     </div>
+    <div class="element">
+    </div>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
@@ -59,7 +61,7 @@ export default {
 
 <style scoped>
   .home {
-    
+
   }
   h1 {
     margin: 20px 10px 10px 10px;
@@ -101,6 +103,43 @@ export default {
   }
 
   img {
+    width: auto;
+    height: auto;
     border-radius: 40px;
+    box-shadow:10px 10px 7px rgba(0,0,0,.7);
   }
+
+  .element {
+  height: 400px;
+  width: 400px;
+  background-color: red;
+  animation:
+    pulse 3s ease infinite alternate,
+    nudge 5s linear infinite alternate;
+  border-radius: 100%;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: red;
+  }
+  50% {
+    background-color: orange;
+  }
+}
+
+@keyframes nudge {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(150px, 0);
+  }
+
+  80% {
+    transform: translate(-150px, 0);
+  }
+}
+
 </style>
