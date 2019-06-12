@@ -1,22 +1,32 @@
 <template>
-  <div class="columns">
-    <div class="column is-4 is-offset-4">
-      <h1>Play with your Foes</h1>
-      <form @submit.prevent="createRace">
+  <div class="race">
+      <h1>PLAY WITH YOUR FOES</h1>
+      <b-row>
+        <b-col lg="6" class="pb-2">
+          <input v-model="createToken" type="text" />
+          <b-button v-on:click="createRace" variant="warning">Create Race</b-button>
+        </b-col>
+
+        <b-col lg="6" class="pb-2">
+          <input v-model="joinToken" type="text" />
+          <b-button v-on:click="joinRace" variant="warning">Join Race</b-button>
+        </b-col>
+      </b-row>
+      <!-- <form @submit.prevent="createRace">
         <input v-model="createToken" type="text" />
         <b-button variant="warning">Create Race</b-button>
       </form>
       <br>
-      <!--{{raceId}}-->
+      {{raceId}}
       <form @submit.prevent="joinRace">
         <input v-model="joinToken" type="text" />
         <b-button variant="warning" class="button is-primary">Join Race</b-button>
-      </form>
+      </form> -->
       <br>
       <div class="message is-danger" v-if="error">
         <div class="message-body">{{error}}</div>
       </div>
-    </div>
+      <img src="https://i.imgur.com/C2cXrol.jpg" alt="keyboard" />
   </div>
 </template>
 
@@ -80,8 +90,54 @@ export default {
 </script>
 
 <style scoped>
-form, input, button {
+ input, button {
   margin: 10px;
   padding: 10px;
+  font-size: 20px;
+}
+
+h1 {
+  padding: 10px;
+  margin: 20px 10px;
+  letter-spacing: 6px;
+}
+
+.pb-2 {
+  padding: 20px;
+  border: 6px solid pink;
+  border-style: inset;
+}
+
+img {
+  max-width: 400px;
+  max-height: 300px;
+  box-shadow:10px 10px 10px rgba(0,0,0,.7);
+  animation:
+    pulse 3s ease infinite alternate,
+    nudge 5s linear infinite alternate;
+  border-radius: 10%;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: red;
+  }
+  50% {
+    background-color: orange;
+  }
+}
+
+@keyframes nudge {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(150px, 0);
+  }
+
+  80% {
+    transform: translate(-150px, 0);
+  }
 }
 </style>

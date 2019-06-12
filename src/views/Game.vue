@@ -3,25 +3,25 @@
     <h1 id="v-step-0">SPEED TYPE</h1>
     <h3 class="v-step-1" id="preventcopy" ref="heading"></h3>
     <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
-    <p>{{message}}</p>
-    <p class="v-step-2">Timer (Seconds): <span id="time">{{stopwatch}}</span></p>
+    <p class="message">{{message}}</p>
+    <p class="v-step-2">Timer (Seconds): <span class="score">{{stopwatch}}</span></p>
     <!--<p>Percentage Completed: {{percentage}}</p>-->
     <!--<p>Score: {{score}}</p>-->
     <!-- <template v-if="this.speed===0">
       <p>Gotta work on your accuracy, Mate!</p>
     </template> -->
     <!-- <template v-else> -->
-    <p class="v-step-3">Speed (WPM): <span id="speed">{{speed}}</span></p>
+    <p class="v-step-3">Speed (WPM): <span class="score">{{speed}}</span></p>
     <!-- </template> -->
     <b-button data-v-step="6" variant="success" v-on:click="restart">Restart</b-button>
     <div class="gameButtons">
     <b-row>
       <b-col lg="6" class="pb-2">
-        <b-button class="animated infinite pulse delay-2s, v-step-4" href="/leaderboard" variant="primary">Leader Board</b-button>
+        <router-link :to="{ path: 'leaderboard' }"><b-button class="animated infinite pulse delay-2s, v-step-4" variant="primary">Leader Board</b-button></router-link>
       </b-col>
 
       <b-col lg="6" class="pb-2">
-        <b-button href="/race" class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button>
+        <router-link :to="{ path: 'race' }"><b-button class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button></router-link>
 <!--
     <b-modal
     v-b-modal.modal-prevent-closing
@@ -159,7 +159,7 @@ export default {
         this.stopwatch = this.getElapsedTime();
         this.uid = this.currentUser.uid;
         this.name = this.currentUser.displayName;
-        this.message = 'Correct';
+        this.message = 'CORRECT!';
         this.speed = this.getWPM()
         this.addScore();
         clearInterval(this.t);
@@ -288,13 +288,20 @@ export default {
     color: pink;
   }
 
-  #time, #speed {
+  .score {
     color: pink;
+    border: 1px solid silver;
+    padding: 10px;
   }
 
   p, button, .gameButtons {
     font-size: 20px;
     margin: 10px;
     padding: 10px;
+  }
+
+  .message {
+    color: green;
+    font-weight: bold;
   }
 </style>

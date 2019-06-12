@@ -19,14 +19,14 @@
         </div>
 
         <div class="field">
-          <input type="file" id="fileInput" ref="image" accept="image/*" class="input"/>
-
+          <input type="file" id="fileInput" ref="imgupload" accept="image/*" class="input" />
+          <button v-on:click="uploadImg" class="button is-primary">Upload Image</button>
           <!-- <button @click.native="selectFile">Upload Image</button> -->
         </div>
 
         <!-- <img v-if="uploadEnd" :src="uploadedImage" /> -->
 
-        <button v-on:click="uploadImg" class="button is-primary">Sign Up</button>
+        <button v-on:click="createAccount" class="button is-primary">Sign Up</button>
       </form>
       <br>
       <div class="message is-danger" v-if="error">
@@ -108,19 +108,6 @@ export default {
 
     uploadImg() {
 
-      var firebaseConfig = {
-        apiKey: "AIzaSyDr32zYXkyHwdWDnMentnq2fmd9ZZghM_c",
-        authDomain: "speedtype-e51a8.firebaseapp.com",
-        databaseURL: "https://speedtype-e51a8.firebaseio.com",
-        projectId: "speedtype-e51a8",
-        storageBucket: "speedtype-e51a8.appspot.com",
-        messagingSenderId: "771149971829",
-        appId: "1:771149971829:web:acb3739a88d46dc5"
-      };
-
-      firebase.initializeApp(firebaseConfig)
-
-      const selectedFile = document.getElementById("fileInput").files[0];
       //let imageValue = document.getElementById("fileInput").files[0].value;
       //let imageName = document.getElementById("fileInput").files[0].name;
       // this.image = imageValue
@@ -128,20 +115,45 @@ export default {
       const storageService = firebase.storage();
       const storageRef = storageService.ref();
 
-      console.log('SELECTED FILE', selectedFile)
+      const selectedFile = document.getElementById("fileInput").files[0];
+
+      //console.log('SELECTED FILE', selectedFile)
       // // Create a reference to 'mountains.jpg'
       //var imagesRef = storageRef.child(imageName);
       // // Create a reference to 'images/mountains.jpg'
 
-      console.log('SELECTED FILE NAME', selectedFile.name)
-      const name = selectedFile.name
-      const fileName = `images\\${name}`
+      // console.log('SELECTED FILE NAME', selectedFile.name)
+      // const name = selectedFile.name
+      // const fileName = `images\\${name}`
 
-      const imageRef = storageRef.child(fileName)
-      imageRef.put(selectedFile).then(function(snapshot) {
-        console.log('Uploaded a blob or file!');
-      }).catch((error) => { console.log('ERRORRR', error)});
-      //return imagesRef
+      const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
+
+      uploadTask.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        // Handle unsuccessful uploads
+        console.log('ERROR', error);
+      },
+      snapshot => {
+        // Do something once upload is complete
+        console.log("success");
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          console.log('CONSOLE THIS>IMAGE', this)
+          this.image = downloadURL
+          console.log('CONSOLE THIS>IMAGE', this.image)
+         });
+      }
+    );
+
+
+
+      // const imageRef = storageRef.child(fileName)
+      // imageRef.put(selectedFile).then(function(snapshot) {
+      //   console.log('Uploaded a blob or file!');
+      // }).catch((error) => { console.log('ERRORRR', error)});
+      // //return imagesRef
       //console.log('UPLOAD TASK', uploadTask)
 
       //const url = uploadTask.getDownloadURL()
@@ -155,7 +167,7 @@ export default {
       //   console.log('ERROR FROM uploadTask', error)
       // });
 
-      console.log('AFTER uploadTask')
+      //console.log('AFTER uploadTask')
       // const fr = new FileReader();
       //   fr.readAsDataURL(imageValue);
       //   fr.addEventListener("load", () => {
@@ -183,27 +195,27 @@ export default {
       // }, () => {
       //   console.log('UPLOAD DONE? ANY')
       // })
-    }
+    },
 
-  /*  async createAccount() {
-        this.name = this.$refs.name.value
-        console.log('THIS NAME', this.name)
-        this.image = this.uploadImg()
-
-        if(this.password === this.confirmPassword || this.name === '') {
-          console.log('THIS IMAGE', this.image)
-          let result = await database.signUp(this.email, this.password, this.name, this.image)
-          if(result.message) {
-            this.error = result.message
+    async createAccount() {
+          this.name = this.$refs.name.value
+          console.log('THIS IMAGE IS', this.image)
+          // this.image = this.uploadImg()
+          if(this.password === this.confirmPassword || this.name === '') {
+            console.log('THIS IMAGE', this.image)
+            let result = await database.signUp(this.email, this.password, this.name, this.image)
+            if(result.message) {
+              this.error = result.message
+            } else {
+              //console.log('user created')
+              this.$router.push('/profile')
+            }
           } else {
-            //console.log('user created')
-            this.$router.push('/profile')
+            this.error = "Either Passwords do not match or name is blank"
           }
-        } else {
-          this.error = "Either Passwords do not match or name is blank"
-        }
 
-      }*/
+
+      }
   }
 }
 </script>

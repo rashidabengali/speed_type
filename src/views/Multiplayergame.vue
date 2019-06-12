@@ -1,34 +1,38 @@
 <template v-if="currentUser">
   <div class="game">
-    <h1>Speed Type</h1>
+    <h1>SPEED TYPE</h1>
+    <div class="multi">
+    <p>Players in the Race</p>
+    <ul>
+      <template v-if="this.uid===currentUser.uid">
+        <li v-for="p in players">
+        {{p.name}}<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
+        </li>
+      </template>
+    </ul>
+  </div>
     <h3 class="preventcopy" ref="heading"></h3>
-    <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" :disabled="isDisabled" />
-    <p>{{message}}</p>
-    <p>Timer: {{stopwatch}} seconds</p>
+    <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
+    <p class="message">{{message}}</p>
+    <b-row>
+      <b-col lg="6" class="pb-2">
+        <p>Timer (Seconds): <span class="score">{{stopwatch}}</span></p>
+      </b-col>
+
+      <b-col lg="6" class="pb-2">
+        <p>Speed (WPM): <span class="score">{{speed}}</span></p>
+      </b-col>
+    </b-row>
+    <!-- <p>Timer (Seconds): <span class="score">{{stopwatch}}</span></p> -->
     <!--<p>Percentage Completed: {{percentage}} %</p>-->
     <!--<p>Score: {{score}}</p>-->
-    <template v-if="this.speed===0">
-      <p>Gotta work on your accuracy, Mate!</p>
-    </template>
-    <template v-else>
-      <p>Speed (WPM): {{speed}} </p>
-    </template>
-    <ul> Accuracy Percentage:
-      <li v-for="p in players">
-        {{p.name}} {{p.percentage || 0}}%
-        <div>
-        <b-progress :value="p.percentage"  show-progress animated></b-progress>
-        </div>
-      </li>
-    </ul>
+    <!-- <p>Speed (WPM): <span class="score">{{speed}}</span></p> -->
     <!-- <ul>
     <li v-for="player in players">
     {{player}}
   </li>
 </ul> -->
-<p>
-  <a href="/race">Play Again</a>
-</p>
+<b-button v-on:click="backToRace" size="lg" variant="success">Play Again</b-button>
 <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
 </div>
 </template>
@@ -63,7 +67,7 @@ export default {
 
     return {
       raceId: null,
-      speed: null,
+      speed: 0,
       message: '',
       test: '',
       players: [],
@@ -79,6 +83,11 @@ export default {
   },
 
   methods: {
+
+    backToRace() {
+      this.$router.push('/race')
+    },
+
     addScore() {
       //const createdAt = new Date();
       database.addScore(this.name, this.uid, Number(this.speed), Number(this.percentage), this.raceId);
@@ -90,7 +99,7 @@ export default {
         this.stopwatch = this.getElapsedTime();
         this.uid = this.currentUser.uid;
         this.name = this.currentUser.displayName;
-        this.message = 'Correct';
+        this.message = 'CORRECT!';
         this.speed = this.getWPM()
         this.addScore();
         clearInterval(this.t);
@@ -171,6 +180,10 @@ export default {
     raceDetailsDoc.onSnapshot((doc) => {
       const raceDetails = doc.data();
       this.players = raceDetails.players;
+
+      const index = this.players.findIndex(p => p.id === this.uid)
+      console.log('Player', this.players[index]);
+      this.players[index].name = "You";
     });
 
     // this.phrase = raceDetails.phrase;
@@ -221,4 +234,48 @@ export default {
     height: 80px;
     width: 70%
   }
+
+  h1 {
+    margin: 10px 10px 10px 10px;
+    padding: 10px;
+    font-size: 60px;
+    letter-spacing: 6px;
+  }
+
+  h3 {
+    margin: 10px;
+    font-size: 30px;
+    padding: 10px;
+    color: pink;
+  }
+
+  .score {
+    color: pink;
+    border: 1px solid silver;
+    padding: 10px;
+  }
+
+  p, button{
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .multi p {
+    font-size: 30px;
+    color: pink;
+    text-decoration: underline;
+    font-weight: bold;
+    text-decoration-style: double;
+  }
+
+  .message {
+    color: green;
+    font-weight: bold;
+  }
+
 </style>

@@ -4,7 +4,7 @@
       <template v-if="currentUser">
         <ul>
           <li><router-link to="/">Home</router-link> |</li>
-          <li><router-link to="/game">Play Game</router-link> |</li>
+          <li><router-link :to="{ path: 'game' }">Play Game</router-link> |</li>
           <li><span> Welcome {{currentUser.displayName}} </span>
           <a href="#" @click="signOut">Sign Out</a> |</li>
         </ul>
