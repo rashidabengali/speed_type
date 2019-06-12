@@ -1,3 +1,3 @@
-module.exports = {
-  baseUrl: "/speed_type/"
-}
+// module.exports = {
+//   baseUrl: "/speed_type/"
+// }
