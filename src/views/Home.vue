@@ -6,7 +6,7 @@
       <div class="homeButtons">
       <b-row>
         <b-col lg="6" class="pb-2">
-          <router-link to="/leaderboard"><b-button class="animated infinite pulse delay-2s" variant="light">Leader Board</b-button></router-link>
+          <router-link :to="{ path: 'leaderboard' }"><b-button class="animated infinite pulse delay-2s" variant="light">Leader Board</b-button></router-link>
           <br>
           <br>
           <p>Make it to the top of the Leader Board.
