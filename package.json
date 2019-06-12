@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "deploy": "node ./node_modules/vue-gh-pages/index.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "homepage": "https://github.com/rashidabengali/speed_type",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.22",
@@ -30,6 +32,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "vue-gh-pages": "^1.19.0",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

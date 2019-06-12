@@ -14,7 +14,7 @@ Vue.use(Router)
 
 let router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: process.env.BASE_URL || 'https://rashidabengali.github.io/speed_type/',
   routes: [
     {
       path: '/',
