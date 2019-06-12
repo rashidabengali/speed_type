@@ -12,7 +12,7 @@
       <img :src="currentUser.photoURL" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%;">
     </template>
     <template v-else>
-      <img src="../assets/cutmypic.png" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+      <img src="https://i.imgur.com/i1QoHaK.png" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%;">
     </template>
   </div>
 </template>

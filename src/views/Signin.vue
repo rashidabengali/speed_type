@@ -54,7 +54,7 @@
     <div class="message is-danger" v-if="error">
       <div class="message-body">{{error}}</div>
     </div>
-    <img src="../assets/p0252jmf.jpg" alt="keyboard" />
+    <img src="https://i.imgur.com/C2cXrol.jpg" alt="keyboard" />
   </div>
 </template>
 

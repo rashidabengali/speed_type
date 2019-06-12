@@ -6,7 +6,7 @@
       <div class="homeButtons">
       <b-row>
         <b-col lg="6" class="pb-2">
-          <b-button class="animated infinite pulse delay-2s" href="/leaderboard" variant="light">Leader Board</b-button>
+          <b-button class="animated infinite pulse delay-2s" href="#leaderboard" variant="light">Leader Board</b-button>
           <br>
           <br>
           <p>Make it to the top of the Leader Board.
@@ -19,7 +19,7 @@
           <b-button class="animated infinite pulse delay-2s" href="/signup" variant="light">Sign Up</b-button>
           <br>
           <br>
-          <p>Already a Member? <span><a href="/signin">Sign In</a></span></p>
+          <p>Already a Member? <span><a href="#signin">Sign In</a></span></p>
         </b-col>
       </b-row>
     </div>
