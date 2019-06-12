@@ -1,6 +1,6 @@
 <template v-if="currentUser">
   <div>
-    <h1>Profile</h1>
+    <h1>PROFILE</h1>
     <p>{{currentUser.email}}</p>
     <template v-if="currentUser.displayName">
       <p>{{currentUser.displayName}}</p>
@@ -9,10 +9,10 @@
       <p>New User</p>
     </template>
     <template v-if="currentUser.photoURL">
-      <img :src="currentUser.photoURL" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+      <img :src="currentUser.photoURL" alt="avatar" style="width: 70px; height: 70px; border-radius: 50%;">
     </template>
     <template v-else>
-      <img src="https://i.imgur.com/i1QoHaK.png" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+      <img src="https://i.imgur.com/5vJnYMc.png" alt="avatar" style="width: 70px; height: 70px; border-radius: 50%;">
     </template>
   </div>
 </template>

@@ -9,7 +9,7 @@
       >
         <b-form-input
           id="input-1"
-          ref="name"
+          v-model="name"
           type="name"
           required
           placeholder="Enter name"
@@ -20,6 +20,7 @@
         <b-form-input
           id="input-2"
           v-model="email"
+            type="email"
           required
           placeholder="Enter email"
         ></b-form-input>
@@ -35,10 +36,19 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-4" label="Your Image:" label-for="input-4">
+      <b-form-group id="input-group-4" label="Confirm Password:" label-for="input-4">
+        <b-form-input
+          id="input-4"
+          v-model="confirmPassword"
+          type="password"
+          required
+          placeholder="Enter password"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-5" label="Your Image:" label-for="input-5">
         <input
-        type="file" id="fileInput" accept="image/*" class="input"
-        />
+        type="file" id="fileInput" accept="image/*" class="input"/>
         <b-button v-on:click="uploadImg">Upload Image</b-button>
       </b-form-group>
 
@@ -253,8 +263,9 @@ export default {
     },
 
     async createAccount() {
-          this.name = this.$refs.name.value
-          console.log('THIS IMAGE IS', this.image)
+          // this.name = this.$refs.name.value
+          console.log('MY NAME', this.name)
+          // console.log('THIS IMAGE IS', this.image)
           // this.image = this.uploadImg()
           if(this.password === this.confirmPassword || this.name === '') {
             console.log('THIS IMAGE', this.image)

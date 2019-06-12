@@ -67,6 +67,7 @@ export default {
 
     return {
       raceId: null,
+      image: '',
       speed: 0,
       message: '',
       test: '',
@@ -74,7 +75,6 @@ export default {
       isDisabled: false,
       isPlaying: false,
       t: null,
-      p: null,
       uid: '',
       name: '',
       stopwatch: 0,
@@ -90,7 +90,7 @@ export default {
 
     addScore() {
       //const createdAt = new Date();
-      database.addScore(this.name, this.uid, Number(this.speed), Number(this.percentage), this.raceId);
+      database.addScore(this.name, this.uid, Number(this.speed), this.image, Number(this.percentage), this.raceId);
     },
 
     displayScore() {
@@ -99,11 +99,15 @@ export default {
         this.stopwatch = this.getElapsedTime();
         this.uid = this.currentUser.uid;
         this.name = this.currentUser.displayName;
+        if (this.currentUser.photoURL) {
+          this.image = this.currentUser.photoURL;
+        } else {
+          this.image = 'https://i.imgur.com/5vJnYMc.png';
+        }
         this.message = 'CORRECT!';
         this.speed = this.getWPM()
         this.addScore();
         clearInterval(this.t);
-        clearInterval(this.p);
         this.isDisabled = true;
       }
     },
@@ -116,6 +120,7 @@ export default {
       if (this.isPlaying) {
         this.$refs.heading.innerHTML = this.getPhraseHtml()
         this.speed = this.getWPM()
+        this.calculatePercentage()
         this.displayScore()
         return;
       }
@@ -125,12 +130,13 @@ export default {
       this.t = setInterval(() => {
         this.stopwatch = this.getElapsedTime()
       }, 300)
+    },
 
-      this.p = setInterval(() => {
-        this.percentage = ((this.test.length/this.$refs.heading.innerText.length) * 100).toFixed(2);
+    calculatePercentage() {
 
-        database.updatePlayerPercentage(this.raceId, this.uid, Number(this.percentage))
-      }, 1000)
+      this.percentage = ((this.test.length/this.$refs.heading.innerText.length) * 100).toFixed()
+
+      database.updatePlayerPercentage(this.raceId, this.uid, Number(this.percentage))
     },
 
     getPhraseHtml() {

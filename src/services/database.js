@@ -60,10 +60,10 @@ database.signOut = async () => {
   }
 }
 
-database.addScore = async (playerName, userId, score, percentage, raceId) => {
+database.addScore = async (playerName, userId, score, image, percentage, raceId) => {
    try {
     //const doc_ref = await
-    const scoreDetails =  await db.collection('scores').add({playerName, score, userId})
+    const scoreDetails =  await db.collection('scores').add({image, playerName, score, userId})
     .then(function() {
       //debugger;
       // console.log('SCORE DETAILS in DB', scoreDetails)

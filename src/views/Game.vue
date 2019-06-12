@@ -136,6 +136,7 @@ export default {
           }
         ],
       message: '',
+      image: '',
       test: null,
       speed: 0,
       isDisabled: false,
@@ -150,7 +151,7 @@ export default {
   methods: {
     addScore () {
       //const createdAt = new Date();
-      database.addScore(this.name, this.uid, Number(this.speed));
+      database.addScore(this.name, this.uid, Number(this.speed), this.image);
     },
 
     displayScore() {
@@ -159,6 +160,12 @@ export default {
         this.stopwatch = this.getElapsedTime();
         this.uid = this.currentUser.uid;
         this.name = this.currentUser.displayName;
+        if (this.currentUser.photoURL) {
+          this.image = this.currentUser.photoURL;
+        } else {
+          this.image = 'https://i.imgur.com/5vJnYMc.png';
+        }
+
         this.message = 'CORRECT!';
         this.speed = this.getWPM()
         this.addScore();
