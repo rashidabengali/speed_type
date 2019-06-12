@@ -38,10 +38,10 @@ database.signUp = async (email, password, name, image) => {
   }
 }
 
-  database.emailVerify = async (email) => {
+  database.emailVerify = async () => {
     var user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
-      // Email sent.
+      console.log('email sent')
     }).catch(function(error) {
       return error
       // An error happened.
