@@ -16,7 +16,7 @@
         </b-col>
 
         <b-col lg="6" class="pb-2">
-          <b-button class="animated infinite pulse delay-2s" href="/signup" variant="light">Sign Up</b-button>
+          <router-link :to="{ path: 'signup' }"><b-button class="animated infinite pulse delay-2s" variant="light">Sign Up</b-button></router-link>
           <br>
           <br>
           <p>Already a Member? <span><a href="#signin">Sign In</a></span></p>
