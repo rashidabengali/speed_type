@@ -36,7 +36,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Your Password:" label-for="input-3">
+      <b-form-group type="file" id="input-group-3" label="Your Image:" label-for="input-3">
         <b-form-input
         type="file" id="fileInput" accept="image/*" class="input"
         ></b-form-input>
