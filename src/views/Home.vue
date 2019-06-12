@@ -2,7 +2,7 @@
   <div class="home">
     <h1>SPEED TYPE</h1>
       <br>
-      <img src="https://rashidabengali.github.io/speed_type/assets/giphy.gif" alt="gif" />
+      <img src="assets/giphy.gif" alt="gif" />
       <div class="homeButtons">
       <b-row>
         <b-col lg="6" class="pb-2">
