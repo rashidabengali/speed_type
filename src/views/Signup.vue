@@ -1,6 +1,5 @@
 <template>
   <div class="signup">
-    <h1>Sign Up</h1>
     <b-card class="mt-3" header="SIGN UP">
       <b-form enctype="multipart/form-data">
       <b-form-group
@@ -36,11 +35,11 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group type="file" id="input-group-3" label="Your Image:" label-for="input-3">
-        <b-form-input
+      <b-form-group id="input-group-4" label="Your Image:" label-for="input-4">
+        <input
         type="file" id="fileInput" accept="image/*" class="input"
-        ></b-form-input>
-        <b-button v-on:click="uploadImg">Upload Image</button>
+        />
+        <b-button v-on:click="uploadImg">Upload Image</b-button>
       </b-form-group>
 
       <b-button v-on:click="createAccount" variant="dark">Sign Up</b-button>
@@ -88,6 +87,7 @@
       <div class="message is-danger" v-if="error">
         <div class="message-body">{{error}}</div>
       </div>
+      <img src="https://i.imgur.com/C2cXrol.jpg" alt="keyboard" />
   </div>
 </template>
 
@@ -274,3 +274,49 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.signup {
+  margin-top: 40px;
+}
+.mt-3 {
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 20px;
+  box-shadow:10px 10px 10px rgba(236,112,99,.5);
+}
+
+img {
+  max-width: 400px;
+  max-height: 300px;
+  box-shadow:10px 10px 10px rgba(0,0,0,.7);
+  animation:
+    pulse 3s ease infinite alternate,
+    nudge 5s linear infinite alternate;
+  border-radius: 10%;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: red;
+  }
+  50% {
+    background-color: orange;
+  }
+}
+
+@keyframes nudge {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(150px, 0);
+  }
+
+  80% {
+    transform: translate(-150px, 0);
+  }
+}
+</style>
