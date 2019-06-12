@@ -1,8 +1,64 @@
 <template>
-  <div class="columns">
-    <div class="column is-4 is-offset-4">
-      <h1>Sign Up</h1>
-      <form enctype="multipart/form-data" >
+  <div class="signup">
+    <h1>Sign Up</h1>
+    <b-card class="mt-3" header="SIGN UP">
+      <b-form enctype="multipart/form-data">
+      <b-form-group
+        id="input-group-1"
+        label="Your Name:"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="input-1"
+          ref="name"
+          type="name"
+          required
+          placeholder="Enter name"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Email Address:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="email"
+          required
+          placeholder="Enter email"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-3" label="Your Password:" label-for="input-3">
+        <b-form-input
+          id="input-3"
+          v-model="password"
+          type="password"
+          required
+          placeholder="Enter password"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-3" label="Your Password:" label-for="input-3">
+        <b-form-input
+        type="file" id="fileInput" accept="image/*" class="input"
+        ></b-form-input>
+        <b-button v-on:click="uploadImg">Upload Image</button>
+      </b-form-group>
+
+      <b-button v-on:click="createAccount" variant="dark">Sign Up</b-button>
+    </b-form>
+
+      <!-- <form @submit.prevent="signIn">
+        <div class="field">
+          <input type="email" v-model="email" placeholder="Email" class="input">
+        </div>
+
+        <div class="field">
+          <input type="password" v-model="password" placeholder="Password" class="input">
+        </div>
+
+        <button class="button is-primary">Sign In</button>
+      </form> -->
+    </b-card>
+      <!--<form enctype="multipart/form-data" >
         <div class="field">
           <input type="name" ref="name" placeholder="Name" class="input">
         </div>
@@ -21,18 +77,17 @@
         <div class="field">
           <input type="file" id="fileInput" ref="imgupload" accept="image/*" class="input" />
           <button v-on:click="uploadImg" class="button is-primary">Upload Image</button>
-          <!-- <button @click.native="selectFile">Upload Image</button> -->
-        </div>
+           <button @click.native="selectFile">Upload Image</button>
+        </div>-->
 
         <!-- <img v-if="uploadEnd" :src="uploadedImage" /> -->
 
-        <button v-on:click="createAccount" class="button is-primary">Sign Up</button>
-      </form>
+        <!--<button v-on:click="createAccount" class="button is-primary">Sign Up</button>
+      </form>-->
       <br>
       <div class="message is-danger" v-if="error">
         <div class="message-body">{{error}}</div>
       </div>
-    </div>
   </div>
 </template>
 
