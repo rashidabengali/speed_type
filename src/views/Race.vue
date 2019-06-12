@@ -1,16 +1,16 @@
 <template>
   <div class="columns">
     <div class="column is-4 is-offset-4">
-      <h1>Create Race</h1>
+      <h1>Play with your Foes</h1>
       <form @submit.prevent="createRace">
         <input v-model="createToken" type="text" />
-        <button class="button is-primary">Create Race</button>
+        <b-button variant="warning">Create Race</b-button>
       </form>
       <br>
       <!--{{raceId}}-->
       <form @submit.prevent="joinRace">
         <input v-model="joinToken" type="text" />
-        <button class="button is-primary">Join Race</button>
+        <b-button variant="warning" class="button is-primary">Join Race</b-button>
       </form>
       <br>
       <div class="message is-danger" v-if="error">
@@ -48,10 +48,11 @@ export default {
   },
   methods: {
     async createRace() {
-      const createdAt = new Date()
+      //const createdAt = new Date()
       this.uid = this.currentUser.uid;
+      this.name = this.currentUser.displayName;
       this.phrase = txtgen.sentence();
-      const raceId = await database.createRace(this.createToken, this.uid, this.phrase, createdAt)
+      const raceId = await database.createRace(this.createToken, this.uid, this.phrase, this.name)
       if(raceId.message) {
         this.error = raceId.message
       } else {
@@ -60,15 +61,27 @@ export default {
     },
     async joinRace() {
       this.uid = this.currentUser.uid;
-      const raceId = await database.joinRace(this.joinToken, this.uid)
+      this.name = this.currentUser.displayName
+      const raceId = await database.joinRace(this.joinToken, this.uid, this.name)
       //console.log('RACEEEEEE ID', raceId);
-      this.$router.push(`/multiplayergame/${raceId}`)
+      if(raceId.message) {
+        this.error = raceId.message
+      } else {
+        this.$router.push(`/multiplayergame/${raceId}`)
+      }
+
     }
     // send the token created by player 1 to player 2 (hard code)  and then player 2 when joins room, looks for the same token in the collwction .get()
 
     //if found then check if player 2 id already exits in  that room or not.
     // if not then add player 2 id needs to be added to that room
-
   }
 }
 </script>
+
+<style scoped>
+form, input, button {
+  margin: 10px;
+  padding: 10px;
+}
+</style>

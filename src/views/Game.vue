@@ -1,23 +1,74 @@
 <template v-if="currentUser">
   <div class="game">
-    <h1 id="v-step-0">Speed Type</h1>
+    <h1 id="v-step-0">SPEED TYPE</h1>
     <h3 class="v-step-1" id="preventcopy" ref="heading"></h3>
     <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
     <p>{{message}}</p>
-    <p class="v-step-2">Timer: {{stopwatch}} seconds</p>
+    <p class="v-step-2">Timer (Seconds): <span id="time">{{stopwatch}}</span></p>
     <!--<p>Percentage Completed: {{percentage}}</p>-->
     <!--<p>Score: {{score}}</p>-->
     <!-- <template v-if="this.speed===0">
       <p>Gotta work on your accuracy, Mate!</p>
     </template> -->
     <!-- <template v-else> -->
-    <p class="v-step-3">Speed (WPM): {{speed}} </p>
+    <p class="v-step-3">Speed (WPM): <span id="speed">{{speed}}</span></p>
     <!-- </template> -->
-    <button data-v-step="6" v-on:click="restart">Restart</button>
-    <p>
+    <b-button data-v-step="6" variant="success" v-on:click="restart">Restart</b-button>
+    <div class="gameButtons">
+    <b-row>
+      <b-col lg="6" class="pb-2">
+        <b-button class="animated infinite pulse delay-2s, v-step-4" href="/leaderboard" variant="primary">Leader Board</b-button>
+      </b-col>
+
+      <b-col lg="6" class="pb-2">
+        <b-button href="/race" class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button>
+<!--
+    <b-modal
+    v-b-modal.modal-prevent-closing
+      id="modal-prevent-closing"
+      ref="modal"
+      title="PLAY WITH YOUR FOES"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="createRace">
+        <b-form-group
+          label=" Enter Token"
+          label-for="name-input"
+          invalid-feedback="Token is required"
+        >
+          <b-form-input
+            id="name-input"
+            v-model="createToken"
+            required
+          ></b-form-input>
+            <b-button variant="warning">Create Race</b-button>
+        </b-form-group>
+      </form>
+
+      <form ref="form" @submit.stop.prevent="joinRace">
+        <b-form-group
+          label=" Enter Token"
+          label-for="name-input"
+          invalid-feedback="Token is required"
+        >
+          <b-form-input
+            id="name-input"
+            v-model="createToken"
+            required
+          ></b-form-input>
+            <b-button variant="warning">Join Race</b-button>
+        </b-form-group>
+      </form>
+    </b-modal> -->
+      </b-col>
+    </b-row>
+  </div>
+    <!-- <p>
       <a class="v-step-4" href="/leaderboard">Leader Board</a>
       <a class="v-step-5" href="/race">Play with your Friends</a>
-    </p>
+    </p> -->
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <v-tour name="myTour" :steps="steps"></v-tour>
   </div>
@@ -74,11 +125,11 @@ export default {
           },
           {
             target: '.v-step-5',
-            content: `Don\'t want to play alone?<br>No worries! Click here and create or join a race.`
+            content: `Don't want to play alone?<br>No worries! Click here and create or join a race.`
           },
           {
             target: '[data-v-step="6"]',
-            content: `Play the Game, you\'ll love it!<br>Click the <strong>Restart</strong> button to score higher.`,
+            content: `Play the Game, you'll love it!<br>Click the <strong>Restart</strong> button to score higher.`,
             params: {
               placement: 'top'
             }
@@ -90,16 +141,16 @@ export default {
       isDisabled: false,
       isPlaying: false,
       t: null,
-      p: null,
       uid: '',
+      name: '',
       stopwatch: 0,
     }
   },
 
   methods: {
     addScore () {
-      const createdAt = new Date();
-      database.addScore(this.uid, this.speed, createdAt);
+      //const createdAt = new Date();
+      database.addScore(this.name, this.uid, Number(this.speed));
     },
 
     displayScore() {
@@ -107,6 +158,7 @@ export default {
         sw.stop();
         this.stopwatch = this.getElapsedTime();
         this.uid = this.currentUser.uid;
+        this.name = this.currentUser.displayName;
         this.message = 'Correct';
         this.speed = this.getWPM()
         this.addScore();
@@ -205,17 +257,44 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #preventcopy {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+
   }
 
   .inputText {
     height: 80px;
-    width: 70%
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  h1 {
+    margin: 20px 10px 10px 10px;
+    padding: 10px;
+    font-size: 60px;
+    letter-spacing: 6px;
+  }
+
+  h3 {
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+    color: pink;
+  }
+
+  #time, #speed {
+    color: pink;
+  }
+
+  p, button, .gameButtons {
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
   }
 </style>

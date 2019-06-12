@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VAnimateCss from 'v-animate-css';
 import App from './App.vue'
 import VueTour from 'vue-tour'
 import router from './router'
@@ -9,6 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 require('vue-tour/dist/vue-tour.css')
+require('vue2-animate/dist/vue2-animate.min.css')
+
+Vue.use(VAnimateCss);
 
 Vue.use(VueTour)
 

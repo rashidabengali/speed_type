@@ -6,7 +6,7 @@
       <div class="homeButtons">
       <b-row>
         <b-col lg="6" class="pb-2">
-          <b-button href="/leaderboard" variant="light">Leader Board</b-button>
+          <b-button class="animated infinite pulse delay-2s" href="/leaderboard" variant="light">Leader Board</b-button>
           <br>
           <br>
           <p>Make it to the top of the Leader Board.
@@ -16,7 +16,7 @@
         </b-col>
 
         <b-col lg="6" class="pb-2">
-          <b-button href="/signup" variant="light">Sign Up</b-button>
+          <b-button class="animated infinite pulse delay-2s" href="/signup" variant="light">Sign Up</b-button>
           <br>
           <br>
           <p>Already a Member? <span><a href="/signin">Sign In</a></span></p>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 //import { npm } from '../helpers/helpers';
 //var randomSentence = require('random-sentence');
 // export const npm = {
@@ -65,7 +64,7 @@ export default {
   h1 {
     margin: 20px 10px 10px 10px;
     padding: 10px;
-    font-size: 60px;
+    font-size: 80px;
     letter-spacing: 6px;
     animation: text 3s 1;
   }
@@ -87,10 +86,6 @@ export default {
   .homeButtons {
     margin: 40px 10px 10px 10px;
     padding: 10px;
-  }
-
-  p {
-    font-size: 20px;
   }
 
   span a {

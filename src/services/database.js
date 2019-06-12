@@ -19,6 +19,7 @@ database.signUp = async (email, password, name, image) => {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function() {
+      console.log('IMAGE', image)
       //console.log('Sign up user', firebase.auth().currentUser)
       return firebase.auth().currentUser.updateProfile({displayName: name, photoURL: image})
       .catch((error) => {
@@ -59,15 +60,17 @@ database.signOut = async () => {
   }
 }
 
-database.addScore = async (userId, score, percentage, createdAt, raceId) => {
-  try {
+database.addScore = async (playerName, userId, score, percentage, raceId) => {
+   try {
     //const doc_ref = await
-    await db.collection('scores').add({userId, score, createdAt})
-    .then(async function() {
-      if (raceId !== null) {
-        const raceDetails = await db.collection('races').doc(raceId).get();
+    const scoreDetails =  await db.collection('scores').add({playerName, score, userId})
+    .then(function() {
+      //debugger;
+      // console.log('SCORE DETAILS in DB', scoreDetails)
+      // console.log('raceId', raceId);
+      if (raceId) {
+        const raceDetails = db.collection('races').doc(raceId).get();
         //console.log('RACE DETAILS in DB', raceDetails)
-
         let players = [];
         players = raceDetails.data().players;
         const index = players.findIndex(p => p.id === userId)
@@ -76,12 +79,12 @@ database.addScore = async (userId, score, percentage, createdAt, raceId) => {
         //console.log('player score', players[index].score);
         db.collection('races').doc(raceId).update({players})
       }
-    })
+     })
     //console.log(doc_ref.id)
-  } catch (error) {
+   } catch (error) {
     //  console.log('ERROR in addScore', error);
     return error
-  }
+   }
 }
 
 database.getScores = async () => {
@@ -101,30 +104,31 @@ database.getScores = async () => {
   }
 }
 
-database.createRace = async (token, userId, phrase, createdAt) => {
+database.createRace = async (token, userId, phrase, name) => {
   try {
     //const doc_ref = await
 
     let playersObject = {
+      name: name,
       id: userId,
-      score: null
+      score: 0
     };
 
     let players = [];
 
     players.push(playersObject);
 
-    const doc_ref = await db.collection('races').add({token, players, phrase, createdAt})
+    const doc_ref = await db.collection('races').add({token, players, phrase})
     //console.log(doc_ref.id)
     const raceId = doc_ref.id;
     return raceId;
   } catch (error) {
-    //  console.log('ERROR in addScore', error);
+    // console.log('ERROR in addScore', error);
     return error
   }
 }
 
-database.joinRace = async (joinToken, userId) => {
+database.joinRace = async (joinToken, userId, name) => {
   try {
     let raceId = null;
     const races = await db.collection('races').get();
@@ -133,6 +137,7 @@ database.joinRace = async (joinToken, userId) => {
         let players = doc.data().players;
         if (!players.includes(userId)) {
           let playersObject = {
+            name: name,
             id: userId,
             score: null
           };
@@ -147,7 +152,7 @@ database.joinRace = async (joinToken, userId) => {
 
     return raceId;
   } catch (error) {
-    //  console.log('ERROR in addScore', error);
+     console.log('ERROR in joinrace', error);
     return error
   }
 }

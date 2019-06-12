@@ -1,8 +1,8 @@
 <template v-if="currentUser">
   <div class="game">
     <h1>Speed Type</h1>
-    <h3 class="preventcopy" ref="heading">{{phrase}}</h3>
-    <input placeholder="start typing" v-model="test" v-on:keyup="timer" v-on:keyup.enter="displayScore" :disabled="isDisabled">
+    <h3 class="preventcopy" ref="heading"></h3>
+    <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" :disabled="isDisabled" />
     <p>{{message}}</p>
     <p>Timer: {{stopwatch}} seconds</p>
     <!--<p>Percentage Completed: {{percentage}} %</p>-->
@@ -13,9 +13,12 @@
     <template v-else>
       <p>Speed (WPM): {{speed}} </p>
     </template>
-    <ul> Percentage Completed:
+    <ul> Accuracy Percentage:
       <li v-for="p in players">
-        {{p.id}} {{p.percentage || 0}}%
+        {{p.name}} {{p.percentage || 0}}%
+        <div>
+        <b-progress :value="p.percentage"  show-progress animated></b-progress>
+        </div>
       </li>
     </ul>
     <!-- <ul>
@@ -62,47 +65,49 @@ export default {
       raceId: null,
       speed: null,
       message: '',
-      test: null,
-      phrase: '',
+      test: '',
       players: [],
       isDisabled: false,
       isPlaying: false,
       t: null,
       p: null,
       uid: '',
+      name: '',
       stopwatch: 0,
-      percentage: []
+      percentage: 0
     }
   },
 
   methods: {
     addScore() {
-      const createdAt = new Date();
-      database.addScore(this.uid, this.speed, this.percentage, createdAt, this.raceId);
+      //const createdAt = new Date();
+      database.addScore(this.name, this.uid, Number(this.speed), Number(this.percentage), this.raceId);
     },
 
     displayScore() {
-      sw.stop();
-      this.stopwatch = this.getElapsedTime();
-      this.uid = this.currentUser.uid;
-
       if(this.$refs.heading.innerText === this.test) {
+        sw.stop();
+        this.stopwatch = this.getElapsedTime();
+        this.uid = this.currentUser.uid;
+        this.name = this.currentUser.displayName;
         this.message = 'Correct';
-        //this.score = this.stopwatch;
-        this.speed = ((this.test.length / 5) / (this.stopwatch / 60)).toFixed(2);
-      } else {
-        this.message = 'Incorrect';
-        //this.score = 0;
-        this.speed = 0;
+        this.speed = this.getWPM()
+        this.addScore();
+        clearInterval(this.t);
+        clearInterval(this.p);
+        this.isDisabled = true;
       }
+    },
 
-      this.addScore();
-      clearInterval(this.t);
-      this.isDisabled = true;
+    getWPM() {
+      return ((this.test.length / 5) / (this.stopwatch / 60)).toFixed()
     },
 
     timer() {
       if (this.isPlaying) {
+        this.$refs.heading.innerHTML = this.getPhraseHtml()
+        this.speed = this.getWPM()
+        this.displayScore()
         return;
       }
       this.isPlaying = true;
@@ -113,10 +118,38 @@ export default {
       }, 300)
 
       this.p = setInterval(() => {
-        this.percentage = ((this.test.length/this.phrase.length) * 100).toFixed(2);
+        this.percentage = ((this.test.length/this.$refs.heading.innerText.length) * 100).toFixed(2);
 
-        database.updatePlayerPercentage(this.raceId, this.uid, this.percentage)
+        database.updatePlayerPercentage(this.raceId, this.uid, Number(this.percentage))
       }, 1000)
+    },
+
+    getPhraseHtml() {
+      let sentence = this.$refs.heading.innerText
+      let typedText = this.test
+
+      if (!typedText) {
+        return sentence
+      }
+
+      let correctTyped = ''
+      let i = 0
+
+      for (; i<typedText.length; i++) {
+        if (typedText[i] === sentence[i]) {
+          correctTyped += sentence[i]
+        } else {
+          break
+        }
+      }
+
+      let remainingText = sentence.substring(i)
+      let remainingTextHtml = ''
+      if (remainingText) {
+        remainingTextHtml = `<span>${remainingText}</span>`
+      }
+
+      return `<span style="color: green">${correctTyped}</span>${remainingTextHtml}`
     },
 
     getElapsedTime() {
@@ -128,20 +161,16 @@ export default {
   async mounted() {
     this.raceId = this.$route.params.id;
     this.uid = this.currentUser.uid;
+    this.name = this.currentUser.displayName;
 
     const raceDetailsDoc = await database.getRaceDetailsDoc(this.raceId);
 
+    const doc = await raceDetailsDoc.get();
+    this.$refs.heading.innerText = doc.data().phrase;
+
     raceDetailsDoc.onSnapshot((doc) => {
       const raceDetails = doc.data();
-      //console.log('Race details 1', raceDetails);
-
-      this.phrase = raceDetails.phrase;
       this.players = raceDetails.players;
-
-      //const index = this.players.findIndex(p => p.id === this.uid)
-      //this.players[index].id = "You";
-
-      //console.log('Race details 2', raceDetails);
     });
 
     // this.phrase = raceDetails.phrase;
@@ -186,5 +215,10 @@ export default {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+  }
+
+  .inputText {
+    height: 80px;
+    width: 70%
   }
 </style>

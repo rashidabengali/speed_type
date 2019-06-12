@@ -16,9 +16,11 @@
     "lodash": "^4.17.11",
     "statman-stopwatch": "^2.8.2",
     "txtgen": "^2.2.2",
+    "v-animate-css": "0.0.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-tour": "^1.1.0",
+    "vue2-animate": "^2.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

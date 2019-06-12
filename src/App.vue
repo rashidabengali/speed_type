@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-    <!--<div id="nav">
+    <div id="nav">
       <template v-if="currentUser">
-        <router-link to="/game">Play Game</router-link> |
-        <router-link to="/profile">Profile</router-link> |
-        <span> Welcome {{currentUser.email}} </span>
-        <a href="#" @click="signOut">Sign Out</a>
+        <ul>
+          <li><router-link to="/">Home</router-link> |</li>
+          <li><router-link to="/game">Play Game</router-link> |</li>
+          <li><span> Welcome {{currentUser.displayName}} </span>
+          <a href="#" @click="signOut">Sign Out</a> |</li>
+        </ul>
+        <!-- <router-link to="/profile">Profile</router-link> | -->
+
       </template>
-    </div>-->
+    </div>
     <router-view/>
   </div>
 </template>
@@ -25,7 +29,7 @@ export default {
   methods: {
     async signOut () {
       await database.signOut()
-      this.$router.push('/signin')
+      this.$router.push('/')
     }
   },
   mounted() {
@@ -74,7 +78,17 @@ export default {
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
+  font-size: 20px;
   background-color: rgba(33,47,60,0.2);
   border-radius: 20px;
+}
+
+#nav li {
+  text-align: right;
+  list-style: none;
+}
+
+#nav li a:hover {
+  text-decoration: none;
 }
 </style>

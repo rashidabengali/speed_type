@@ -11,7 +11,8 @@
       </thead>
       <tbody>
         <tr v-for="(score, i) in scores" :key="i">
-          <td>{{ score.userId }}</td> |
+          <td>{{ score.playerName }}</td> |
+          <!-- <td>{{ score.userId }}</td> | -->
           <td>{{ score.score }}</td>
         </tr>
       </tbody>
