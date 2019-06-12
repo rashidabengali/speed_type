@@ -1,3 +1,3 @@
 module.exports = {
-  baseUrl: "/speed_type/"
+  publicPath: "/speed_type/"
 }
