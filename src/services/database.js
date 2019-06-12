@@ -42,6 +42,7 @@ database.signUp = async (email, password, name, image) => {
     var user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
       console.log('email sent')
+      alert('Email Verified')
     }).catch(function(error) {
       return error
       // An error happened.

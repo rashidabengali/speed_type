@@ -14,8 +14,8 @@
     <template v-else>
       <img src="https://i.imgur.com/5vJnYMc.png" alt="avatar" style="width: 70px; height: 70px; border-radius: 50%;">
     </template>
-    <!-- <br>
-    <b-button variant="success" v-on:click="sendVerification">Verify Email</b-button> -->
+    <br>
+    <!-- <b-button variant="success" v-on:click="sendVerification">Verify Email</b-button> -->
   </div>
 </template>
 
