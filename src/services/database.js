@@ -19,7 +19,7 @@ database.signUp = async (email, password, name, image) => {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function() {
-      console.log('IMAGE', image)
+      //console.log('IMAGE', image)
       //console.log('Sign up user', firebase.auth().currentUser)
       return firebase.auth().currentUser.updateProfile({displayName: name, photoURL: image})
       .catch((error) => {
@@ -41,7 +41,7 @@ database.signUp = async (email, password, name, image) => {
   database.emailVerify = async () => {
     var user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
-      console.log('email sent')
+      //console.log('email sent')
       alert('Email Verified')
     }).catch(function(error) {
       return error
@@ -164,7 +164,7 @@ database.joinRace = async (joinToken, userId, name) => {
 
     return raceId;
   } catch (error) {
-     console.log('ERROR in joinrace', error);
+     //console.log('ERROR in joinrace', error);
     return error
   }
 }
@@ -183,13 +183,14 @@ database.getRaceDetailsDoc = async (raceId) => {
   }
 }
 
-database.updatePlayerPercentage = async (raceId, userId, percentage) => {
+database.updatePlayerPercentage = async (raceId, userId, percentage, score) => {
   const raceDetails = await db.collection('races').doc(raceId).get();
 
   let players = [];
   players = raceDetails.data().players;
   const index = players.findIndex(p => p.id === userId)
   players[index].percentage = percentage;
+  players[index].score = score;
   db.collection('races').doc(raceId).update({players})
 }
 

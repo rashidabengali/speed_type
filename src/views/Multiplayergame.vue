@@ -6,7 +6,7 @@
     <ul>
       <template v-if="this.uid===currentUser.uid">
         <li v-for="p in players">
-        {{p.name}}<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
+        {{p.name}} {{p.score}} WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
         </li>
       </template>
     </ul>
@@ -136,7 +136,7 @@ export default {
 
       this.percentage = ((this.test.length/this.$refs.heading.innerText.length) * 100).toFixed()
 
-      database.updatePlayerPercentage(this.raceId, this.uid, Number(this.percentage))
+      database.updatePlayerPercentage(this.raceId, this.uid, Number(this.percentage), Number(this.speed))
     },
 
     getPhraseHtml() {
