@@ -6,7 +6,7 @@
     <ul>
       <template v-if="this.uid===currentUser.uid">
         <li v-for="p in players">
-        {{p.name}} {{p.score}} WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
+        {{p.name}} <span class="score">{{p.score}}</span>WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
         </li>
       </template>
     </ul>
