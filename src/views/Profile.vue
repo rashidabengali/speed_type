@@ -36,3 +36,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  img {
+    object-position: 50% 50%;
+  }
+</style>

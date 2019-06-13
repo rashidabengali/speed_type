@@ -54,6 +54,9 @@ export default {
 </script>
 
 <style scoped>
+  img {
+    object-position: 50% 50%;
+  }
 
   h1 {
     margin: 10px;
