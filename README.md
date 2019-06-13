@@ -1,5 +1,7 @@
 # speed_type
 
+Link to live site https://rashidabengali.github.io/speed_type/#/leaderboard
+
 ## Project setup
 ```
 npm install
