@@ -6,7 +6,7 @@
     <ul>
       <template v-if="this.uid===currentUser.uid">
         <li v-for="p in players">
-        {{p.name}} <span class="score">{{p.score}}</span>WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
+        {{p.name}} <span class="snapscore">{{p.score}}</span> WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
         </li>
       </template>
     </ul>
@@ -259,6 +259,10 @@ export default {
     color: pink;
     border: 1px solid silver;
     padding: 10px;
+  }
+
+  .snapscore {
+    color: pink;
   }
 
   p, button{
