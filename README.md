@@ -1,6 +1,6 @@
 # speed_type
 
-Link to live site https://rashidabengali.github.io/speed_type/#/leaderboard
+Link to live site https://rashidabengali.github.io/speed_type/#/
 
 ## Project setup
 ```
