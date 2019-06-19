@@ -61,14 +61,11 @@ h1 {
   font-weight: bold;
   font-size: 60px;
   letter-spacing: 6px;
-  position: fixed;
-  text-align: center;
 }
 button {
   margin: 10px;
   padding: 10px;
   font-size: 20px;
-  position: fixed;
 }
 tr, td, th {
   margin: 10px;
@@ -99,7 +96,6 @@ th {
   color: #0069D8;
   font-weight: bold;
   font-size: 20px;
-  position: fixed;
 }
 
 </style>
