@@ -36,73 +36,41 @@ The sentence will keep turning *green* ONLY if the player has typed it ***correc
 
 ### Create/Join Race
 
-Players can play
+Players can play with their fellow friends only by creating or joining a race room.
 
 ![Race](/src/assets/screenshots/race.png "Race")
 
-### Checkout Page
+### Multiplayer Game
 
-After clicking *Buy Now* button or *Cart Icon* in Navbar. The User can view the **Order Details**. He may **Edit** the quantity of an item or can also **Remove** the product from the buttons provided according to his convenience.
+The *name*, typing *speed* and the *percentage accuracy* of the players who have joined the room will be displayed on the screen.
 
-![Checkout](./src/img/screenshots/Screen%20Shot%202019-05-17%20at%202.59.35%20am.png "Checkout")
+The speed and the the percentage accuracy will get updated in real time as the players type.
 
-### Card Payment
-
-Our secure payment method, allows the User to make Payment wit ease.
-
-![Card Payment](./src/img/screenshots/Screen%20Shot%202019-05-17%20at%203.00.39%20am.png "Card Payment")
-
-### Payment Done
-
-![Payment Done](./src/img/screenshots/Screen%20Shot%202019-05-17%20at%203.01.01%20am.png "Payment Done")
+![Multiplayer Game](/src/assets/screenshots/multi.png "Multiplayer")
 
 Technologies
------------------------------------------------------
-This E-Commerce web application uses mainly **ReactJS** Front-end and **Rails** Back-end with **PostgreSQL** as database and has been deployed on **Heroku**.
+-------------------------------------------
+This game is built with **VueJS** as Front-end and **Firebase** as Back-end.
 
-***Pamper My Pet*** has the following MVC (Model View Controller) Structure
-
-![MVC](./src/img/screenshots/mvc.png "MVC")
-
-Each **Model** inherits from *ActiveRecord* that does the following in an object oriented fashion:
-
-* Create tables
-* Represent associations between Models
-* Perform database operations
-
------------------------------------------------------
 - Front-end uses HTML utilising Google Fonts and web-sourced images
 - Styling and animations through CSS, Bootstrap and Favicons
-- ReactJS for Front-end Components
+- VueJS for Front-end Components
 
 #### Major Features:
 
-  * Rails API: JSON endpoint rendering in the Controllers
-     * JWT for User Authentication  
-     * Stripe API for simulated payments      
-  * Windows LocalStorage used in handling Session Data
-    * Storing session for current user
-    * Storing cart items
-  * NPM Packages Applied: Alice Carousel for the Carousel Display in the Home Page, React-Stripe-Elements for the Card Payment
-  * `Axios.get` `Axios.post` `Axios.put` Method will save the User's Cart in the database if they Log Out without Purchasing them. Later, if they Login even from some other device, they will be able to view the Cart
-  * Gems: BCrypt, JWT, Stripe and Rack-Cors to enable API Endpoint
-  * Admin Rights
-
-  ![Add](./src/img/screenshots/add.png "Add")
-
-  ![Edit](./src/img/screenshots/admin2.png "Edit")
+  * Firebase User Authentication and Email Verification
+  * NPM Packages Applied:
+    * statman-stopwatch
+    * txtgen
+    * vue-tour
+  * `.get()` `.add()` `.update()` `.onSnapshot()` Methods
+    * Create new users *Profile* with a unique *userId*
+    * Add scores to the database when a player successfully finishes playing a game that renders in the Leader Board
+    * Create/join race by adding the userId and creating a new *raceId* each time and then updating the race room every time a new player joins in
+    * Real time updates in speed and percentage accuracy that renders in the Multiplayer Game.
 
 Wishlist
-----------------------------------------------------
+-------------------------------------------------
 
-  * Implement Discount or Sale options
-  * Simulate Delivery System
-  * Introduce User Review for *Pamper My Pet* Products
-  * Enable Price Filter in Search Bar.
+  * Rank the players in accordance with their typing speed once the game is over in the Multiplayer Game
   * More Animations
-
-
-### Lints and fixes files
-```
-npm run lint
-```
