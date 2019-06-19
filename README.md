@@ -82,4 +82,5 @@ Wishlist
 -------------------------------------------------
 
   * Rank the players in accordance with their typing speed once the game is over in the Multiplayer Game
+  * Allow users to edit their profile
   * More Animations
