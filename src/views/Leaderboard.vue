@@ -61,6 +61,7 @@ h1 {
   font-weight: bold;
   font-size: 60px;
   letter-spacing: 6px;
+  position: fixed;
 }
 button {
   margin: 10px;

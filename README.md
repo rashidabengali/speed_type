@@ -2,19 +2,21 @@
 
 [Play Here](https://rashidabengali.github.io/speed_type/#/)
 
-![Home Page](/src/assets/screenshots/home.png "Home Page")
+![Home Page](src/assets/screenshots/home.png "Home Page")
 
 A game that will help improve your **Typing Speed** while making it immensely enjoyable for you to play.
 
 A new *Player* has to *Sign Up* with an authentic email address and verify it to create an account and an existing one has to simply *Sign In*
 
-### Sign Up Page
+### Sign Up
 
-![Sign Up](/src/assets/screenshots/signup.png "Sign Up")
+![Sign Up](src/assets/screenshots/signup.png "Sign Up")
 
-### Sign In Page
+![Verify](src/assets/screenshots/verify.png "Verify")
 
-![Sign In](/src/assets/screenshots/signin.png "Sign In")
+### Sign In
+
+![Sign In](src/assets/screenshots/signin.png "Sign In")
 
 ### Leader Board
 
