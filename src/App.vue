@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <audio controls id="myVideo" autoplay loop  hidden>
+    <source src="src/assets/Vanguard Bouncy (loop).mp3" type="audio/wav">
+    </audio>
+    <!-- <audio src="Vanguard Bouncy (loop).mp3" type="audio/mpeg" autoplay loop>
+    </audio> -->
     <div id="nav">
       <template v-if="currentUser">
         <ul>
@@ -18,6 +23,7 @@
 
 <script>
 import database from '@/services/database'
+require('howler');
 export default {
 
   computed: {
@@ -34,6 +40,13 @@ export default {
   },
   mounted() {
     document.getElementsByTagName('body')[0].classList.add('container')
+    var sound = new Howl({
+      src: 'assets/Vanguard Bouncy (loop).mp3',
+      autoplay: true,
+      loop: true
+    });
+      console.log('sound')
+      sound.play();
     }
   }
 </script>
