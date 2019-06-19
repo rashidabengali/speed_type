@@ -14,7 +14,7 @@
         </b-col>
 
         <b-col lg="6" class="pb-2">
-          <router-link :to="{ path: 'race' }"><b-button class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button></router-link>
+          <router-link :to="{ path: 'race' }"><b-button class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Mates</b-button></router-link>
         </b-col>
       </b-row>
     </div>
@@ -45,7 +45,7 @@ export default {
     return {
       steps: [
         {
-          target: '#v-step-0',  
+          target: '#v-step-0',
           content: `Take a tour for <strong>Game Instructions</strong>!`
         },
         {

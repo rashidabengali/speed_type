@@ -1,6 +1,6 @@
 <template>
   <div class="race">
-    <h1>PLAY WITH YOUR FOES</h1>
+    <h1>PLAY WITH YOUR MATES</h1>
     <b-row>
       <b-col lg="6" class="pb-2">
         <input v-model="createToken" type="text" />
