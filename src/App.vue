@@ -14,7 +14,6 @@
           <a href="#" @click="signOut">Sign Out</a> |</li>
         </ul>
         <!-- <router-link to="/profile">Profile</router-link> | -->
-
       </template>
     </div>
     <router-view/>
@@ -53,28 +52,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Quantico&display=swap');
-/*@import '~bulma/css/bulma.css';
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-*/
 .container {
   background:
   radial-gradient(black 15%, transparent 16%) 0 0,

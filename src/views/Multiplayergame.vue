@@ -2,15 +2,15 @@
   <div class="game">
     <h1>SPEED TYPE</h1>
     <div class="multi">
-    <p>Players in the Race</p>
-    <ul>
-      <template v-if="this.uid===currentUser.uid">
-        <li v-for="p in players">
-        {{p.name}} <span class="snapscore">{{p.score}}</span> WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
-        </li>
-      </template>
-    </ul>
-  </div>
+      <p>Players in the Race</p>
+      <ul>
+        <template v-if="this.uid===currentUser.uid">
+          <li v-for="p in players">
+            {{p.name}} <span class="snapscore">{{p.score}}</span> WPM<span><b-progress height="2rem" :value="p.percentage"  show-progress animated></b-progress></span>
+          </li>
+        </template>
+      </ul>
+    </div>
     <h3 class="preventcopy" ref="heading"></h3>
     <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
     <p class="message">{{message}}</p>
@@ -23,18 +23,9 @@
         <p>Speed (WPM): <span class="score">{{speed}}</span></p>
       </b-col>
     </b-row>
-    <!-- <p>Timer (Seconds): <span class="score">{{stopwatch}}</span></p> -->
-    <!--<p>Percentage Completed: {{percentage}} %</p>-->
-    <!--<p>Score: {{score}}</p>-->
-    <!-- <p>Speed (WPM): <span class="score">{{speed}}</span></p> -->
-    <!-- <ul>
-    <li v-for="player in players">
-    {{player}}
-  </li>
-</ul> -->
-<b-button v-on:click="backToRace" size="lg" variant="success">Play Again</b-button>
-<!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-</div>
+    <b-button v-on:click="backToRace" size="lg" variant="success">Play Again</b-button>
+    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+  </div>
 </template>
 
 <script>
@@ -43,20 +34,10 @@ const Stopwatch = require('statman-stopwatch');
 const sw = new Stopwatch();
 
 import database from '@/services/database'
-//import { npm } from '../helpers/helpers';
-//var randomSentence = require('random-sentence');
-//var txtgen = require('txtgen');
-// export const npm = {
-//   getRand: randomSentence()
-// };
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'game',
-  // components: {
-  //   HelloWorld
-  // }
+
   computed: {
     currentUser () {
       return this.$store.state.currentUser
@@ -188,7 +169,7 @@ export default {
       this.players = raceDetails.players;
 
       const index = this.players.findIndex(p => p.id === this.uid)
-      console.log('Player', this.players[index]);
+      //console.log('Player', this.players[index]);
       this.players[index].name = "You";
     });
 
@@ -223,69 +204,69 @@ export default {
 });*/
 //console.log('RACE DETAILS', raceDetails);
 
-  }
+}
 }
 </script>
 
 <style>
-  .preventcopy {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-  }
+.preventcopy {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
-  .inputText {
-    height: 80px;
-    width: 70%
-  }
+.inputText {
+  height: 80px;
+  width: 70%
+}
 
-  h1 {
-    margin: 10px 10px 10px 10px;
-    padding: 10px;
-    font-size: 60px;
-    letter-spacing: 6px;
-  }
+h1 {
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  font-size: 60px;
+  letter-spacing: 6px;
+}
 
-  h3 {
-    margin: 10px;
-    font-size: 30px;
-    padding: 10px;
-    color: pink;
-  }
+h3 {
+  margin: 10px;
+  font-size: 30px;
+  padding: 10px;
+  color: pink;
+}
 
-  .score {
-    color: pink;
-    border: 1px solid silver;
-    padding: 10px;
-  }
+.score {
+  color: pink;
+  border: 1px solid silver;
+  padding: 10px;
+}
 
-  .snapscore {
-    color: pink;
-  }
+.snapscore {
+  color: pink;
+}
 
-  p, button{
-    font-size: 20px;
-    margin: 10px;
-    padding: 10px;
-  }
+p, button{
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+}
 
-  li {
-    list-style: none;
-  }
+li {
+  list-style: none;
+}
 
-  .multi p {
-    font-size: 30px;
-    color: pink;
-    text-decoration: underline;
-    font-weight: bold;
-    text-decoration-style: double;
-  }
+.multi p {
+  font-size: 30px;
+  color: pink;
+  text-decoration: underline;
+  font-weight: bold;
+  text-decoration-style: double;
+}
 
-  .message {
-    color: green;
-    font-weight: bold;
-  }
+.message {
+  color: green;
+  font-weight: bold;
+}
 
 </style>

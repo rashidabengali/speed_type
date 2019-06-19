@@ -1,32 +1,22 @@
 <template>
   <div class="race">
-      <h1>PLAY WITH YOUR FOES</h1>
-      <b-row>
-        <b-col lg="6" class="pb-2">
-          <input v-model="createToken" type="text" />
-          <b-button v-on:click="createRace" variant="warning">Create Race</b-button>
-        </b-col>
-
-        <b-col lg="6" class="pb-2">
-          <input v-model="joinToken" type="text" />
-          <b-button v-on:click="joinRace" variant="warning">Join Race</b-button>
-        </b-col>
-      </b-row>
-      <!-- <form @submit.prevent="createRace">
+    <h1>PLAY WITH YOUR FOES</h1>
+    <b-row>
+      <b-col lg="6" class="pb-2">
         <input v-model="createToken" type="text" />
-        <b-button variant="warning">Create Race</b-button>
-      </form>
-      <br>
-      {{raceId}}
-      <form @submit.prevent="joinRace">
+        <b-button v-on:click="createRace" variant="warning">Create Race</b-button>
+      </b-col>
+
+      <b-col lg="6" class="pb-2">
         <input v-model="joinToken" type="text" />
-        <b-button variant="warning" class="button is-primary">Join Race</b-button>
-      </form> -->
-      <br>
-      <div class="message is-danger" v-if="error">
-        <div class="message-body">{{error}}</div>
-      </div>
-      <img src="https://i.imgur.com/C2cXrol.jpg" alt="keyboard" />
+        <b-button v-on:click="joinRace" variant="warning">Join Race</b-button>
+      </b-col>
+    </b-row>
+    <br>
+    <div class="message is-danger" v-if="error">
+      <div class="message-body">{{error}}</div>
+    </div>
+    <img src="https://i.imgur.com/C2cXrol.jpg" alt="keyboard" />
   </div>
 </template>
 
@@ -79,7 +69,6 @@ export default {
       } else {
         this.$router.push(`/multiplayergame/${raceId}`)
       }
-
     }
     // send the token created by player 1 to player 2 (hard code)  and then player 2 when joins room, looks for the same token in the collwction .get()
 
@@ -90,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
- input, button {
+input, button {
   margin: 10px;
   padding: 10px;
   font-size: 20px;
@@ -113,8 +102,8 @@ img {
   max-height: 300px;
   box-shadow:10px 10px 10px rgba(0,0,0,.7);
   animation:
-    pulse 3s ease infinite alternate,
-    nudge 5s linear infinite alternate;
+  pulse 3s ease infinite alternate,
+  nudge 5s linear infinite alternate;
   border-radius: 10%;
 }
 

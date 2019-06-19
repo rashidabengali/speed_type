@@ -15,7 +15,6 @@
       <img src="https://i.imgur.com/5vJnYMc.png" alt="avatar" style="width: 70px; height: 70px; border-radius: 50%;">
     </template>
     <br>
-    <!-- <b-button variant="success" v-on:click="sendVerification">Verify Email</b-button> -->
   </div>
 </template>
 
@@ -38,7 +37,7 @@ export default {
 </script>
 
 <style scoped>
-  img {
-    object-position: 50% 50%;
-  }
+img {
+  object-position: 50% 50%;
+}
 </style>

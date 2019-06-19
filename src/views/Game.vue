@@ -5,71 +5,19 @@
     <textarea class="inputText" placeholder="start typing" v-model="test" v-on:keyup="timer" onpaste="return false" :disabled="isDisabled" />
     <p class="message">{{message}}</p>
     <p class="v-step-2">Timer (Seconds): <span class="score">{{stopwatch}}</span></p>
-    <!--<p>Percentage Completed: {{percentage}}</p>-->
-    <!--<p>Score: {{score}}</p>-->
-    <!-- <template v-if="this.speed===0">
-      <p>Gotta work on your accuracy, Mate!</p>
-    </template> -->
-    <!-- <template v-else> -->
     <p class="v-step-3">Speed (WPM): <span class="score">{{speed}}</span></p>
-    <!-- </template> -->
     <b-button data-v-step="6" variant="success" v-on:click="restart">Restart</b-button>
     <div class="gameButtons">
-    <b-row>
-      <b-col lg="6" class="pb-2">
-        <router-link :to="{ path: 'leaderboard' }"><b-button class="animated infinite pulse delay-2s, v-step-4" variant="primary">Leader Board</b-button></router-link>
-      </b-col>
+      <b-row>
+        <b-col lg="6" class="pb-2">
+          <router-link :to="{ path: 'leaderboard' }"><b-button class="animated infinite pulse delay-2s, v-step-4" variant="primary">Leader Board</b-button></router-link>
+        </b-col>
 
-      <b-col lg="6" class="pb-2">
-        <router-link :to="{ path: 'race' }"><b-button class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button></router-link>
-<!--
-    <b-modal
-    v-b-modal.modal-prevent-closing
-      id="modal-prevent-closing"
-      ref="modal"
-      title="PLAY WITH YOUR FOES"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="createRace">
-        <b-form-group
-          label=" Enter Token"
-          label-for="name-input"
-          invalid-feedback="Token is required"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="createToken"
-            required
-          ></b-form-input>
-            <b-button variant="warning">Create Race</b-button>
-        </b-form-group>
-      </form>
-
-      <form ref="form" @submit.stop.prevent="joinRace">
-        <b-form-group
-          label=" Enter Token"
-          label-for="name-input"
-          invalid-feedback="Token is required"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="createToken"
-            required
-          ></b-form-input>
-            <b-button variant="warning">Join Race</b-button>
-        </b-form-group>
-      </form>
-    </b-modal> -->
-      </b-col>
-    </b-row>
-  </div>
-    <!-- <p>
-      <a class="v-step-4" href="/leaderboard">Leader Board</a>
-      <a class="v-step-5" href="/race">Play with your Friends</a>
-    </p> -->
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+        <b-col lg="6" class="pb-2">
+          <router-link :to="{ path: 'race' }"><b-button class="animated infinite pulse delay-2s, v-step-5" variant="primary">Play with your Foes</b-button></router-link>
+        </b-col>
+      </b-row>
+    </div>
     <v-tour name="myTour" :steps="steps"></v-tour>
   </div>
 </template>
@@ -80,20 +28,13 @@ const Stopwatch = require('statman-stopwatch');
 const sw = new Stopwatch();
 
 import database from '@/services/database'
-//import { npm } from '../helpers/helpers';
+
 //var randomSentence = require('random-sentence');
 var txtgen = require('txtgen');
-// export const npm = {
-//   getRand: randomSentence()
-// };
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'game',
-  // components: {
-  //   HelloWorld
-  // }
+
   computed: {
     currentUser () {
       return this.$store.state.currentUser
@@ -103,38 +44,38 @@ export default {
   data() {
     return {
       steps: [
-          {
-            target: '#v-step-0',  // We're using document.querySelector() under the hood
-            content: `Take a tour for <strong>Game Instructions</strong>!`
-          },
-          {
-            target: '.v-step-1',
-            content: 'Type this sentence accurately below'
-          },
-          {
-            target: '.v-step-2',
-            content: 'As soon as you start typing, the timer will begin'
-          },
-          {
-            target: '.v-step-3',
-            content: `Your typing speed will be displayed here as you keep typing`
-          },
-          {
-            target: '.v-step-4',
-            content: `The higher your speed, the higher you score<br>Speed up to make it to the top ranks of the <strong>Leader Board</strong>`
-          },
-          {
-            target: '.v-step-5',
-            content: `Don't want to play alone?<br>No worries! Click here and create or join a race.`
-          },
-          {
-            target: '[data-v-step="6"]',
-            content: `Play the Game, you'll love it!<br>Click the <strong>Restart</strong> button to score higher.`,
-            params: {
-              placement: 'top'
-            }
+        {
+          target: '#v-step-0',  
+          content: `Take a tour for <strong>Game Instructions</strong>!`
+        },
+        {
+          target: '.v-step-1',
+          content: 'Type this sentence accurately below'
+        },
+        {
+          target: '.v-step-2',
+          content: 'As soon as you start typing, the timer will begin'
+        },
+        {
+          target: '.v-step-3',
+          content: `Your typing speed will be displayed here as you keep typing`
+        },
+        {
+          target: '.v-step-4',
+          content: `The higher your speed, the higher you score<br>Speed up to make it to the top ranks of the <strong>Leader Board</strong>`
+        },
+        {
+          target: '.v-step-5',
+          content: `Don't want to play alone?<br>No worries! Click here and create or join a race.`
+        },
+        {
+          target: '[data-v-step="6"]',
+          content: `Play the Game, you'll love it!<br>Click the <strong>Restart</strong> button to score higher.`,
+          params: {
+            placement: 'top'
           }
-        ],
+        }
+      ],
       message: '',
       image: '',
       test: null,
@@ -193,9 +134,6 @@ export default {
         this.stopwatch = this.getElapsedTime()
       }, 300)
 
-      // this.p = setInterval(() => {
-      //   this. percentage = ((this.test.length/this.$refs.heading.innerText.length) * 100).toFixed(2);
-      // }, 1000)
     },
 
     getPhraseHtml() {
@@ -226,17 +164,6 @@ export default {
       return `<span style="color: green">${correctTyped}</span>${remainingTextHtml}`
     },
 
-      /*calculatePercentage() {
-      if (this.isPlaying) {
-      return;
-    }
-    this.isPlaying = true;
-    this.p = setInterval(() => {
-    this. percentage = ((this.$refs.heading.innerText.length - this.test.length)/this.$refs.heading.innerText.length) * 100;
-    }, 1000)
-
-    },*/
-
     getElapsedTime() {
       let elapsedTime = Number((sw.time() / 1000).toFixed(1))
       if (!elapsedTime) return 0
@@ -265,50 +192,50 @@ export default {
 </script>
 
 <style scoped>
-  #preventcopy {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+#preventcopy {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 
-  }
+}
 
-  .inputText {
-    height: 80px;
-    width: 80%;
-    margin: 10px;
-    padding: 10px;
-  }
+.inputText {
+  height: 80px;
+  width: 80%;
+  margin: 10px;
+  padding: 10px;
+}
 
-  h1 {
-    margin: 20px 10px 10px 10px;
-    padding: 10px;
-    font-size: 60px;
-    letter-spacing: 6px;
-  }
+h1 {
+  margin: 20px 10px 10px 10px;
+  padding: 10px;
+  font-size: 60px;
+  letter-spacing: 6px;
+}
 
-  h3 {
-    margin: 10px;
-    padding: 10px;
-    font-size: 30px;
-    color: pink;
-  }
+h3 {
+  margin: 10px;
+  padding: 10px;
+  font-size: 30px;
+  color: pink;
+}
 
-  .score {
-    color: pink;
-    border: 1px solid silver;
-    padding: 10px;
-  }
+.score {
+  color: pink;
+  border: 1px solid silver;
+  padding: 10px;
+}
 
-  p, button, .gameButtons {
-    font-size: 20px;
-    margin: 10px;
-    padding: 10px;
-  }
+p, button, .gameButtons {
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+}
 
-  .message {
-    color: green;
-    font-weight: bold;
-  }
+.message {
+  color: green;
+  font-weight: bold;
+}
 </style>
