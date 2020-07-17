@@ -16,7 +16,7 @@
     "core-js": "^2.6.5",
     "firebase": "^6.1.0",
     "howler": "^2.1.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "statman-stopwatch": "^2.8.2",
     "txtgen": "^2.2.2",
     "v-animate-css": "0.0.3",
